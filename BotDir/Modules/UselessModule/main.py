@@ -18,8 +18,9 @@ class UselessModule(Module):
 
         @self.bot.message_handler()
         def repeater(message: telebot.types.Message):
-            core.delete_message(message)
-            self.bot.send_message(chat_id=message.chat.id, text=message.text)
+            if message.text[0] != '/':
+                core.delete_message(message)
+                self.bot.send_message(chat_id=message.chat.id, text=message.text)
 
     """Bot's core will call it when user type /help"""
     """It will merge like '[yourReturn] from [UselessModule]' """

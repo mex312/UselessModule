@@ -2,8 +2,8 @@ import telebot
 from every_bot.types import Module, Core
 
 
-class YourModuleName(Module):
-    name = 'YourModuleName'
+class UselessModule(Module):
+    name = 'UselessModule'
     bot: telebot.TeleBot
 
     def __init__(self, core: Core):
@@ -16,6 +16,11 @@ class YourModuleName(Module):
             core.delete_message(message)
             self.bot.send_message(chat_id=message.chat.id, text="Hello!")
 
+        @self.bot.message_handler()
+        def repeater(message: telebot.types.Message):
+            core.delete_message(message)
+            self.bot.send_message(chat_id=message.chat.id, text=message.text)
+
     """Bot's core will call it when user type /help"""
     """It will merge like '[yourReturn] from [YourModuleName]' """
     def help(self):
@@ -23,4 +28,4 @@ class YourModuleName(Module):
 
 
 def get_module(core):
-    return YourModuleName(core)
+    return UselessModule(core)
